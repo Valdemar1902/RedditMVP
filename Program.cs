@@ -40,6 +40,14 @@ app.MapGet("/posts", (AppDbContext db) =>
         return db.Posts.OrderByDescending(p => p.CreatedAt).Take(50).ToListAsync();
     });
 
+//GET retreival of specific post
+app.MapGet("/posts/{id}", (int id, AppDbContext db) =>
+{
+    var post = db.Posts.Find(id);
+    if (post == null) return Results.NotFound();
+    return Results.Json(post);
+});
+
 // POST creates post with post object as input.
 // saves to db and returns succescode
 // example: http://localhost:****/posts

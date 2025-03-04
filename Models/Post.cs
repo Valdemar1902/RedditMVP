@@ -8,5 +8,6 @@ public class Post
     public string Author { get; set; } = string.Empty;
     public int Upvotes { get; set; } = 0;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public List<Comment> Comments {get; set; } = new();
+    public List<Comment> Comments {get; set; } = new List<Comment>();
 }
+
