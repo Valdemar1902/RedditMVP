@@ -3210,19 +3210,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/valdemar1902/.nuget/packages/": {}
+    "C:\\Users\\Valdemar ´Tversted\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/valdemar1902/Desktop/RedditMVP/RedditMVP.csproj",
+      "projectUniqueName": "C:\\Users\\Valdemar ´Tversted\\fleet\\RedditMVP\\RedditMVP.csproj",
       "projectName": "RedditMVP",
-      "projectPath": "/Users/valdemar1902/Desktop/RedditMVP/RedditMVP.csproj",
-      "packagesPath": "/Users/valdemar1902/.nuget/packages/",
-      "outputPath": "/Users/valdemar1902/Desktop/RedditMVP/obj/",
+      "projectPath": "C:\\Users\\Valdemar ´Tversted\\fleet\\RedditMVP\\RedditMVP.csproj",
+      "packagesPath": "C:\\Users\\Valdemar ´Tversted\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Valdemar ´Tversted\\fleet\\RedditMVP\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/valdemar1902/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Valdemar ´Tversted\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -3296,7 +3296,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

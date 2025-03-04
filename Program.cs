@@ -5,27 +5,25 @@ using RedditMVP.Models;
 // setup of dependencies and db / config
 var builder = WebApplication.CreateBuilder(args);
 
-//use cors
-const string allowCors = "_AllowCors";
+
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: allowCors, builder =>
+    options.AddPolicy("allowCors", builder =>
     {
-        if (builder == null) throw new ArgumentNullException(nameof(builder));
-        builder.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        builder.WithOrigins("https://localhost:5002")
+               .AllowAnyMethod()
+               .AllowAnyHeader();
     });
 });
 
 // setup of dependencies and db / config
-
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=reddit.db"));
 
 // builds the application
 var app = builder.Build();
-app.UseCors(allowCors);
+app.UseCors("allowCors");
 
 // create var with scoped services
 // database migrate creates db if none exists, and updates with old migrations
@@ -55,11 +53,11 @@ app.MapPost("/posts", (Post post, AppDbContext db) =>
 // PUT to update post with ID and upvote
 // if found, add 1 or -1 depending on bool sent
 // example: http://localhost:****/posts/1/vote?upvote=true
-app.MapPut("/posts/{id}/vote", (int id, bool upvote, AppDbContext db) =>
+app.MapPut("/posts/{id}/upvote", (int id, AppDbContext db) =>
 {
     var post = db.Posts.Find(id);
     if (post == null) return Results.NotFound();
-    post.Votes += upvote ? 1 : -1;
+    post.Upvotes += 1;
     db.SaveChanges();
     return Results.Ok(post);
 });
