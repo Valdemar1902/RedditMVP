@@ -88,6 +88,16 @@ app.MapPost("/posts/{id}/comments", (int id, Comment comment, AppDbContext db) =
     return Results.Created($"/comments/{comment.Id}", comment);
 });
 
+app.MapDelete("/posts/{id}", (int id, AppDbContext db)=>
+    {
+        var post = db.Posts.Find(id);
+        if (post == null) return Results.NotFound();
+
+        db.Posts.Remove(post);
+        db.SaveChanges();
+
+        return Results.Ok();
+    });
 
 // run the app
 app.Run();
