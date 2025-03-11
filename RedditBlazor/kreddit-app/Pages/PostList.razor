@@ -1,0 +1,73 @@
+﻿@inherits LayoutComponentBase
+
+@using kreddit_app.Data;
+@using shared.Model;
+@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@if (_posts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Published</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Comments</th>
+            <th colspan="4">Votes</th>
+        </tr>
+        @foreach (var post in _posts)
+        {
+            <tr>
+                <td>@(post.CreatedAt.ToString("HH:mm, dd-MM-yy"))</td>
+                <td><a href="/post/@post.Id">@(post.Title.Length > 40 ? post.Title.Substring(0,40) + "..." : post.Title)</a></td>
+                <td>@(post.Content.Length > 20 ? post.Content.Substring(0,20) + "..." : post.Content)</td>
+                <td>@(post.CommentCount)</td>
+                <td>@(post.Upvotes)</td>
+                <td><button @onclick="() => Upvote(post.Id)">Upvote</button></td>
+                <td><button @onclick="() => DeletePost(post.Id)">Delete</button></td>
+            </tr>
+        }
+        <CreatePost></CreatePost>
+    </table>
+
+    <br/>
+}
+
+@code {
+    private Post[]? _posts;
+    private Post? _votePost;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _posts = await ApiService.GetPosts();
+    }
+
+    private async void Upvote(int id)
+    {
+        var updatedPost = await ApiService.UpvotePost(id);
+
+        // re render element
+        if (_posts != null)
+        {
+            var postToUpdate = _posts.FirstOrDefault(p => p.Id == id);
+            if (postToUpdate != null)
+            {
+                postToUpdate.Upvotes = updatedPost.Upvotes;
+            }
+        StateHasChanged();
+        }
+    }
+
+    private async void DeletePost(int id)
+    {
+        await ApiService.DeletePost(id);
+
+        NavigationManager.NavigateTo("/", true);
+    }
+}
