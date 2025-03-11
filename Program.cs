@@ -37,7 +37,18 @@ using (var scope = app.Services.CreateScope())
 // GET retreives last 50 post to a list ordered by creationdate
 app.MapGet("/posts", (AppDbContext db) =>
     {
-        return db.Posts.OrderByDescending(p => p.CreatedAt).Take(50).ToListAsync();
+        return db.Posts.Select(p => new {
+                p.Id,
+                p.Title,
+                p.Content,
+                p.Author,
+                p.Upvotes,
+                p.CreatedAt,
+                CommentCount = p.Comments.Count
+            })
+                .OrderByDescending(p => p.CreatedAt)
+                .Take(50)
+                .ToListAsync();
     });
 
 //GET retreival of specific post

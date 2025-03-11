@@ -9,5 +9,6 @@ public class Post
     public int Upvotes { get; set; } = 0;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public List<Comment> Comments {get; set; } = new List<Comment>();
+    public int CommentCOunt => Comments.Count;
 }
 
